@@ -34,7 +34,7 @@ Authorization: Basic <encoded_auth>
 ----
 curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d "grant_type=client_credentials" -d "scope=api.console" -d client_id=<client_id> -d client_secret=<client_secret> 
 ----
-. Red Hat SSO will respond with a JSON object containing an access token. This access token can be used to make authenticated requests to APIs by including the access_token generated in the previous step in an Authorization: Bearer HTTP header in your request:
+. Red Hat SSO will respond with a JSON object containing an access token. This access token can be used to make authenticated requests to APIs by including the access_token generated in the previous step in an `Authorization: Bearer` HTTP header in your request:
 +
 ----
 Authorization: Bearer <access_token>
