@@ -212,12 +212,12 @@ GET /policies/v1/policies/<policy_id>/history/trigger
 
 Get all systems with applicable advisories (patches available):
 ----
-GET /patch/v1/advisories
+GET /patch/v3/advisories
 ----
 
 Get all applicable advisories for a specific system:
 ----
-GET /patch/v1/systems/<uuid>/advisories
+GET /patch/v3/systems/<uuid>/advisories
 ----
 
 === Subscriptions
