@@ -8,7 +8,9 @@ Red Hat Insights allows you to investigate and make changes to the configuration
 
 The Insights API provides secure REST services over HTTPS endpoints. This protects authentication credentials in transit.
 
-=== Basic Authentication
+=== Basic Authentication (discontinued from Dec 2024)
+
+*Important:* Starting Dec 2024, Red Hat will discontinue support for basic authorization to connect to services' APIs. The Hybrid Cloud Console is integrating service accounts with User Access functionality to provide granular control over access permissions and enhance security. Token-based authentication is recommended. More information about transitioning from Basic authentication to token-based authentication via service accounts is described on the https://access.redhat.com/articles/7036194[Red Hat Customer Portal].
 
 . Create a base64 encoding for your username and password, submitting them with the syntax `<name>:<password>`: 
 +
@@ -20,6 +22,22 @@ echo -n 'admin:<password>' | openssl base64
 +
 ----
 Authorization: Basic <encoded_auth>
+----
+
+=== Red Hat Token-based Authentication via Service Account (recommended)
+
+. Create a new Service Account on https://console.redhat.com/iam/service-accounts[Hybrid Cloud Console]
+. Obtain Service Account credentials (Client ID and Client Secret)
+. Add the Service Account to the applicable https://console.redhat.com/iam/user-access/groups[User Access Groups] (Service accounts DO NOT inherit permissions from Default access groups, so they must be granted access permissions by placing them in a User Group)
+. Generate an access token from Red Hat Single Sign-On (SSO) using the service account credentials <client_id> and <client_secret >:
++
+----
+curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d "grant_type=client_credentials" -d "scope=api.console" -d client_id=<client_id> -d client_secret=<client_secret> 
+----
+. Red Hat SSO will respond with a JSON object containing an access token. This access token can be used to make authenticated requests to APIs by including the access_token generated in the previous step in an Authorization: Bearer HTTP header in your request:
++
+----
+Authorization: Bearer <access_token>
 ----
 
 === Red Hat API Token Authentication (recommended)
@@ -276,7 +294,7 @@ $ python -m pip install requests
 ----
 or
 ----
->>> headers = {'Authorization': 'Bearer <acces_token>'}
+>>> headers = {'Authorization': 'Bearer <access_token>'}
 ----
 
 === GET
