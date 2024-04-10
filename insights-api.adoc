@@ -2,15 +2,15 @@
 :experimental: true
 :product-name:
 
-Red Hat Insights allows you to investigate and make changes to the configuration of hosts managed by Red Hat through REST APIs. This cheat sheet covers the basic APIs. All examples are performed on https://console.redhat.com/api/[https://console.redhat.com/api/] using `v1` endpoints. Please refer to https://console.redhat.com/docs/api-docs[https://console.redhat.com/docs/api-docs] for the latest API specifications and deprecations.
+Red Hat Insights allows you to investigate and make changes to the configuration of hosts managed by Red Hat through REST APIs. This cheat sheet covers the basic APIs. All examples are performed on https://console.redhat.com/api/[https://console.redhat.com/api/] using `v1` endpoints. Refer to https://console.redhat.com/docs/api-docs[https://console.redhat.com/docs/api-docs] for the latest API specifications and deprecations.
 
 == Authentication
 
 The Insights API provides secure REST services over HTTPS endpoints. This protects authentication credentials in transit.
 
-=== Basic Authentication (discontinued from Dec 2024)
+=== Basic authentication (discontinued from Dec 2024)
 
-*Important:* Starting Dec 2024, Red Hat will discontinue support for basic authorization to connect to services' APIs. The Hybrid Cloud Console is integrating service accounts with User Access functionality to provide granular control over access permissions and enhance security. Token-based authentication is recommended. More information about transitioning from Basic authentication to token-based authentication via service accounts is described on the https://access.redhat.com/articles/7036194[Red Hat Customer Portal].
+*Important:* Starting Dec 2024, Red Hat will discontinue support for basic authorization to connect to services' APIs. The Red Hat Hybrid Cloud Console is integrating service accounts with User Access functionality to provide granular control over access permissions and enhance security. Token-based authentication is recommended. More information about transitioning from basic authentication to token-based authentication via service accounts is described on the https://access.redhat.com/articles/7036194[Red Hat Customer Portal].
 
 . Create a base64 encoding for your username and password, submitting them with the syntax `<name>:<password>`: 
 +
@@ -18,29 +18,29 @@ The Insights API provides secure REST services over HTTPS endpoints. This protec
 echo -n 'admin:<password>' | openssl base64
 ----
 
-. Include the <encoded_auth> output in an `Authorization: Basic` HTTP header in your request:
+. Include the `<encoded_auth>` output in an `Authorization: Basic` HTTP header in your request:
 +
 ----
 Authorization: Basic <encoded_auth>
 ----
 
-=== Red Hat Token-based Authentication via Service Account (recommended)
+=== Red Hat token-based authentication via service account (recommended)
 
-. Create a new Service Account on https://console.redhat.com/iam/service-accounts[Hybrid Cloud Console]
-. Obtain Service Account credentials (Client ID and Client Secret)
-. Add the Service Account to the applicable https://console.redhat.com/iam/user-access/groups[User Access Groups] (Service accounts DO NOT inherit permissions from Default access groups, so they must be granted access permissions by placing them in a User Group)
-. Generate an access token from Red Hat Single Sign-On (SSO) using the service account credentials <client_id> and <client_secret >:
+. Create a new service account on the https://console.redhat.com/iam/service-accounts[Red Hat Hybrid Cloud Console].
+. Obtain service account credentials (Client ID and Client Secret).
+. Add the service account to the applicable https://console.redhat.com/iam/user-access/groups[User Access Groups] (service accounts *do not* inherit permissions from Default access groups, so they must be granted access permissions by placing them in a User Group).
+. Generate an access token using Red Hat's single sign-on (SSO) technology using the service account credentials <client_id> and <client_secret >:
 +
 ----
 curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d "grant_type=client_credentials" -d "scope=api.console" -d client_id=<client_id> -d client_secret=<client_secret> 
 ----
-. Red Hat SSO will respond with a JSON object containing an access token. This access token can be used to make authenticated requests to APIs by including the access_token generated in the previous step in an `Authorization: Bearer` HTTP header in your request:
+. Red Hat's SSO will respond with a JSON object containing an access token. This access token can be used to make authenticated requests to APIs by including the access_token generated in the previous step in an `Authorization: Bearer` HTTP header in your request:
 +
 ----
 Authorization: Bearer <access_token>
 ----
 
-=== Red Hat API Token Authentication (recommended)
+=== Red Hat API token authentication (recommended)
 
 . Log in to the https://access.redhat.com/[Red Hat Customer Portal] with your username and password.
 . Generate an offline token using https://access.redhat.com/management/api[Red Hat API Tokens] by following the instructions.
@@ -49,15 +49,15 @@ Authorization: Bearer <access_token>
 ----
 curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d grant_type=refresh_token -d client_id=rhsm-api -d refresh_token=<offline_token>
 ----
-. Include the access_token generated in the previous step in an `Authorization: Bearer` HTTP header in your request:
+. Include the access token generated in the previous step in an `Authorization: Bearer` HTTP header in your request:
 +
 ----
 Authorization: Bearer <access_token>
 ----
 
-== Common Activities
+== Common activities
 
-=== Host Inventory
+=== Host inventory
 
 Get all hosts in the account:
 ----
@@ -96,7 +96,7 @@ Delete a system:
 DELETE /inventory/v1/hosts/<uuid>
 ----
 
-== Advisor
+=== Advisor
 
 Get all active hits for the account:
 ----
@@ -120,14 +120,14 @@ Get summary of all hits for a given system :
 GET /insights/v1/system/<uuid>
 ----
 
-== Drift
+=== Drift
 
 Get defined baselines:
 ----
 GET /system-baseline/v1/baselines
 ----
 
-Create a new baseline by passing a JSON request body with a `baseline_facts` or a `inventory_uuid` or `hsp_uuid` to copy the baseline facts from e.g.
+Create a new baseline by passing a JSON request body with a `baseline_facts` or a `inventory_uuid` or `hsp_uuid` to copy the baseline facts from, e.g.:
 ----
 POST /system-baseline/v1/baselines
 {
@@ -141,7 +141,7 @@ POST /system-baseline/v1/baselines
 }
 ----
 
-NOTE: DELETE and PATCH operations are also available on `/system-baseline/v1/baselines/<baseline_id>`.
+NOTE: `DELETE` and `PATCH` operations are also available on `/system-baseline/v1/baselines/<baseline_id>`.
 
 Run a comparison, passing a list of systems, baselines, historical system profiles, and a reference for comparison (multiple UUIDs or other items are formatted as comma-separated lists):
 ----
@@ -158,7 +158,7 @@ Get a specific historical system profile on a system:
 GET /historical-system-profiles/v1/profiles/<profile_id>
 ----
 
-== Vulnerabilities
+=== Vulnerabilities
 
 Get vulnerabilities affecting systems in the account:
 ----
@@ -170,7 +170,7 @@ Get executive reports, e.g., CVEs by severity, top CVEs, etc.:
 GET /vulnerability/v1/report/executive
 ----
 
-== Compliance
+=== Compliance
 
 Get systems associated with Security Content Automation Protocol (SCAP) policies:
 ----
@@ -182,7 +182,7 @@ Get systems' compliance/failures for defined reports:
 GET /compliance/v1/profiles
 ----
 
-== Policies
+=== Policies
 
 Get all defined policies:
 ----
@@ -201,7 +201,7 @@ POST /policies/v1/policies
 }
 ----
 
-NOTE: DELETE and PUT operations are also available on `/policies/<policy_id>`.
+NOTE: `DELETE` and `PUT` operations are also available on `/policies/<policy_id>`.
 
 Get all systems triggering a policy:
 ----
@@ -267,7 +267,7 @@ Execute a remediation:
 POST /remediations/v1/remediations/<remediation_id>/playbook_runs
 ----
 
-=== Integrations and Notifications
+=== Integrations and notifications
 
 Get event log history for a list of last triggered Insights events and actions:
 ----
@@ -279,7 +279,7 @@ Get list of configured third party integrations:
 GET /integrations/v1/endpoints
 ----
 
-== Python Examples
+== Python examples
 
 The following Python code interacts with the Insights API using the `requests` library to abstract away the complexity of handling HTTP requests.
 
@@ -322,7 +322,7 @@ or
 {'account': '<account_id>', 'baseline_facts': [{'name': 'arch', 'value': 'x86_64'}], 'created': '2021-11-29T21:06:33.630905Z', 'display_name': 'my_baseline', 'fact_count': 1, 'id': '<baseline_id>', 'mapped_system_count': 0, 'notifications_enabled': True, 'updated': '2021-11-29T21:06:33.630910Z'}
 ----
 
-== Ansible Example
+== Ansible example
 
 The following Ansible playbook uses the `ansible.builtin.uri` module to interact with the Insights API.
 
