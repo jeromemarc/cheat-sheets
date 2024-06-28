@@ -210,14 +210,9 @@ GET /policies/v1/policies/<policy_id>/history/trigger
 
 === Patches
 
-Get all systems with applicable advisories (patches available):
+Get all applicable advisories for my systems (patches available):
 ----
-GET /patch/v3/advisories
-----
-
-Get all applicable advisories for a specific system:
-----
-GET /patch/v3/systems/<uuid>/advisories
+GET /patch/v3/export/advisories
 ----
 
 === Subscriptions
