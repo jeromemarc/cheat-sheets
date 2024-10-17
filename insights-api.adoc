@@ -120,44 +120,6 @@ Get summary of all hits for a given system :
 GET /insights/v1/system/<uuid>
 ----
 
-=== Drift
-
-Get defined baselines:
-----
-GET /system-baseline/v1/baselines
-----
-
-Create a new baseline by passing a JSON request body with a `baseline_facts` or a `inventory_uuid` or `hsp_uuid` to copy the baseline facts from, e.g.:
-----
-POST /system-baseline/v1/baselines
-{
-  "baseline_facts": [
-    {
-      "name": "arch",
-      "value": "x86_64"
-    }
-  ],
-  "display_name": "my_baseline"
-}
-----
-
-NOTE: `DELETE` and `PATCH` operations are also available on `/system-baseline/v1/baselines/<baseline_id>`.
-
-Run a comparison, passing a list of systems, baselines, historical system profiles, and a reference for comparison (multiple UUIDs or other items are formatted as comma-separated lists):
-----
-GET /drift/v1/comparison_report?system_ids[]=<uuids>,baseline_ids[]=<baseline_ids>,historical_system_profile_ids[]=<hsp_ids>,reference_id=<id>
-----
-
-Get historical system profiles on a system:
-----
-GET /historical-system-profiles/v1/systems/<uuid>
-----
-
-Get a specific historical system profile on a system:
-----
-GET /historical-system-profiles/v1/profiles/<profile_id>
-----
-
 === Vulnerabilities
 
 Get vulnerabilities affecting systems in the account:
