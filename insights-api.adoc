@@ -270,13 +270,13 @@ or
 
 ----
 >>> import requests
->>> insights_api_url = "https://console.redhat.com/api/system-baseline/v1/baselines"
->>> baseline = {"baseline_facts": [{"name": "arch", "value": "x86_64"}], "display_name": "my_baseline"}
->>> response = requests.post(insights_api_url, headers=headers, json=baseline)
+>>> insights_api_url = "https://console.redhat.com/api/policies/v1/policies?alsoStore=True"
+>>> policy = {"name": "my_policy", "description": "My policy", "isEnabled": True, "conditions": "arch = \"x86_64\"", "actions": "notification"}
+>>> response = requests.post(insights_api_url, headers=headers, json=policy)
 >>> response.status_code
-200
+201
 >>> response.json()
-{'account': '<account_id>', 'baseline_facts': [{'name': 'arch', 'value': 'x86_64'}], 'created': '2021-11-29T21:06:33.630905Z', 'display_name': 'my_baseline', 'fact_count': 1, 'id': '<baseline_id>', 'mapped_system_count': 0, 'notifications_enabled': True, 'updated': '2021-11-29T21:06:33.630910Z'}
+{'id': '<policy_id>', 'name': 'my_policy', 'description': 'My policy', 'isEnabled': True, 'conditions': 'arch = "x86_64"', 'actions': 'notification', 'mtime': '2024-10-17 15:23:02.942', 'ctime': '2024-10-17 15:23:02.942', 'lastTriggered': 0}
 ----
 
 == Ansible example
