@@ -8,22 +8,6 @@ Red Hat Insights allows you to investigate and make changes to the configuration
 
 The Insights API provides secure REST services over HTTPS endpoints. This protects authentication credentials in transit.
 
-=== Basic authentication (discontinued from Dec 2024)
-
-*Important:* Starting Dec 2024, Red Hat will discontinue support for basic authorization to connect to services' APIs. The Red Hat Hybrid Cloud Console is integrating service accounts with User Access functionality to provide granular control over access permissions and enhance security. Token-based authentication is recommended. More information about transitioning from basic authentication to token-based authentication via service accounts is described on the https://access.redhat.com/articles/7036194[Red Hat Customer Portal].
-
-. Create a base64 encoding for your username and password, submitting them with the syntax `<name>:<password>`: 
-+
-----
-echo -n 'admin:<password>' | openssl base64
-----
-
-. Include the `<encoded_auth>` output in an `Authorization: Basic` HTTP header in your request:
-+
-----
-Authorization: Basic <encoded_auth>
-----
-
 === Red Hat token-based authentication via service account (recommended)
 
 . Create a new service account on the https://console.redhat.com/iam/service-accounts[Red Hat Hybrid Cloud Console].
@@ -40,7 +24,7 @@ curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/
 Authorization: Bearer <access_token>
 ----
 
-=== Red Hat API token authentication (recommended)
+=== Red Hat API token authentication
 
 . Log in to the https://access.redhat.com/[Red Hat Customer Portal] with your username and password.
 . Generate an offline token using https://access.redhat.com/management/api[Red Hat API Tokens] by following the instructions.
@@ -54,6 +38,11 @@ curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/
 ----
 Authorization: Bearer <access_token>
 ----
+
+=== Basic authentication (deprecated)
+
+*Important:* Basic authentication is now deprecated. Red Hat does not support basic authorization to connect to services' APIs. Token-based authentication is recommended. More information about transitioning from basic authentication to token-based authentication via service accounts is described on the https://access.redhat.com/articles/7036194[Red Hat Customer Portal].
+
 
 == Common activities
 
@@ -275,10 +264,6 @@ $ python -m pip install requests
 === Authentication
 
 ----
->>> headers = {'Authorization': 'Basic <encoded_auth>'}
-----
-or
-----
 >>> headers = {'Authorization': 'Bearer <access_token>'}
 ----
 
@@ -319,15 +304,8 @@ The following Ansible playbook uses the `ansible.builtin.uri` module to interact
 
   vars:
     insights_api_url: "https://console.redhat.com/api"
-----
-----
-    insights_auth: "Basic <encoded_auth>"
-----
-or
-----
     insights_auth: "Bearer <access_token>"
-----
-----
+
   tasks:
   - name: Get Inventory
     uri:
