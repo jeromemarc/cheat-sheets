@@ -2,7 +2,7 @@
 :experimental: true
 :product-name:
 
-Red Hat Insights allows you to investigate and make changes to the configuration of hosts managed by Red Hat through REST APIs. This cheat sheet covers the basic APIs. All examples are performed on https://console.redhat.com/api/[https://console.redhat.com/api/]. Refer to https://console.redhat.com/docs/api-docs[https://console.redhat.com/docs/api-docs] for the latest API specifications and deprecations.
+Red Hat Insights allows you to investigate and make changes to the configuration of hosts managed by Red Hat through REST APIs. This cheat sheet covers the basic APIs. All examples are performed on https://console.redhat.com/api/[https://console.redhat.com/api/]. Refer to https://console.redhat.com/docs/api[https://console.redhat.com/docs/api] for the latest API specifications and deprecations.
 
 == Authentication
 
