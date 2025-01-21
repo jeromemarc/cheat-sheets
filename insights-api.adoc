@@ -196,9 +196,9 @@ GET /patch/v3/export/advisories
 
 === Subscriptions
 
-Get all subscribed Red Hat Enterprise Linux systems matching filters (e.g., Premium SLA, Production usage):
+Get all systems with a matching RHEL for x86 subscription:
 ----
-GET /rhsm-subscriptions/v1/hosts/products/RHEL?sla=Premium&usage=Production
+GET /rhsm-subscriptions/v1/instances/products/RHEL%20for%20x86
 ----
 
 === Remediations
