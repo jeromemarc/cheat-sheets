@@ -112,6 +112,22 @@ Download the generated export (as a zip file):
 GET /exports/<export_id>
 ----
 
+=== Image Builder
+
+Submit a new compose request
+----
+POST /image-builder/v1/compose
+----
+
+Get a list of compose request IDs:
+----
+GET /image-builder/v1/composes/
+----
+
+Get the status of a compose request
+----
+GET /image-builder/v1/composes/{composeId}
+----
 
 === Advisor
 
