@@ -130,7 +130,7 @@ GET /image-builder/v1/composes/
 
 Get the status of a compose request
 ----
-GET /image-builder/v1/composes/{composeId}
+GET /image-builder/v1/composes/<compose_id>
 ----
 
 === Advisor
