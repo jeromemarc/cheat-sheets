@@ -39,6 +39,8 @@ curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/
 Authorization: Bearer <access_token>
 ----
 
+Additional information about Red Hat API Token authentication can be found in the https://access.redhat.com/articles/3626371[Getting started with Red Hat APIs] KB article.
+
 === Basic authentication (deprecated)
 
 *Important:* Basic authentication is now deprecated. Red Hat does not support basic authorization to connect to services' APIs. Token-based authentication is recommended. More information about transitioning from basic authentication to token-based authentication via service accounts is described on the https://access.redhat.com/articles/7036194[Red Hat Customer Portal].
