@@ -125,6 +125,20 @@ GET /exports/<export_id>
 Submit a new compose request
 ----
 POST /image-builder/v1/compose
+{
+  "image_name": "My latest RHEL9 guest image",
+  "distribution": "rhel-95",
+  "image_requests": [
+    {
+      "architecture": "x86_64",
+      "image_type": "guest-image",
+      "upload_request": {
+        "type": "aws.s3",
+        "options": {}
+      }
+    }
+  ]
+}
 ----
 
 Get a list of compose request IDs:
