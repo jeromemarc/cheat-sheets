@@ -55,22 +55,24 @@ Get all hosts in the account:
 GET /inventory/v1/hosts
 ----
 
+NOTE: Filtering by staleness satus ensures that only relevant systems are queried (e.g., `&staleness=fresh` or `&staleness=stale`)
+
 Get system details (e.g., after registration, using the UUID provided):
 ----
 GET /inventory/v1/hosts/<uuid>
 ----
 
-Get facts about all systems’ system profiles:
+Get all facts from a system' system profile:
 ----
 GET /inventory/v1/hosts/<uuid>/system_profile
 ----
 
-Get facts about a specific system’s system profile (e.g., `last_boot_time` and `os_kernel_version`):
-----
-GET /inventory/v1/hosts/<uuid>/system_profile?fields[system_profile]=last_boot_time,os_kernel_version
-----
+NOTE: Optimize queries by specifying only the required facts using the `fields` parameter (e.g., `?fields[system_profile]=arch&fields[system_profile]=cpu_model&fields[system_profile]=os_release`)
 
-NOTE: Only the following facts are syndicated at present: `bios_release_date`, `bios_vendor`, `bios_version`, `infrastructure_type`, `operating_system`, `owner_id`, `rhsm`, `sap_sids`, `sap_system`.
+Get hosts and retrieve system profile fields in one request:
+----
+GET /inventory/v1/hosts?fields[system_profile]=arch,os_release,number_of_cpus
+----
 
 Get a system’s tags:
 ----
