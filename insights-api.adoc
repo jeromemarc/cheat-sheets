@@ -122,7 +122,7 @@ GET /exports/<export_id>
 
 === Image Builder
 
-Submit a new compose request
+Submit a new compose image request
 ----
 POST /image-builder/v1/compose
 {
@@ -141,12 +141,12 @@ POST /image-builder/v1/compose
 }
 ----
 
-Get a list of compose request IDs:
+Get a list of compose image request IDs:
 ----
 GET /image-builder/v1/composes/
 ----
 
-Get the status of a compose request
+Get the status of a compose image request
 ----
 GET /image-builder/v1/composes/<compose_id>
 ----
