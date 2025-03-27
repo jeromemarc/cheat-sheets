@@ -151,7 +151,7 @@ Get the status of a compose image request
 GET /image-builder/v1/composes/<compose_id>
 ----
 
-Related Blog Post: [Using hosted image builder via its API](https://www.redhat.com/en/blog/using-hosted-image-builder-its-api)
+Related blog post on https://www.redhat.com/en/blog/using-hosted-image-builder-its-api[Using hosted image builder via its API].
 
 === Advisor
 
