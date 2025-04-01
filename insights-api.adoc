@@ -361,3 +361,7 @@ The following Ansible playbook uses the `ansible.builtin.uri` module to interact
     debug:
       var: result.json
 ----
+
+== Additional Resources
+
+* https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html/using_the_red_hat_insights_api/index[Using the Red Hat Insights API] – Comprehensive documentation on authentication, endpoints, and usage of the Insights API.
