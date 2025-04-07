@@ -153,6 +153,91 @@ GET /image-builder/v1/composes/<compose_id>
 
 Related blog post on https://www.redhat.com/en/blog/using-hosted-image-builder-its-api[Using hosted image builder via its API].
 
+=== Repositories and Content Templates
+
+This section documents the `content-sources` endpoint for managing repositories and content templates in Red Hat Insights.
+
+*Managing repositories*
+
+Get a list of all existing repositories:
+----
+GET /content-sources/v1.0/repositories/
+----
+
+Create a new custom repository:
+----
+POST /content-sources/v1.0/repositories/
+{
+  "distribution_arch": "x86_64",
+  "distribution_versions": ["10"],
+  "gpg_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\...\n-----END PGP PUBLIC KEY BLOCK-----",
+  "metadata_verification": false,
+  "module_hotfixes": false,
+  "name": "EPEL 10 Everything x86_64",
+  "snapshot": false,
+  "url": "https://dl.fedoraproject.org/pub/epel/10/Everything/x86_64/"
+}
+----
+NOTE: to create multiple repositories at once, use the bulk API: `POST /content-sources/v1.0/repositories/bulk_create/`
+
+*Managing content templates*
+
+Create a new content template
+```
+POST /content-sources/v1.0/templates/
+{
+  "arch": "x86_64",
+  "description": "",
+  "name": "My RHEL10 template",
+  "repository_uuids": [
+        "<repository1 id>",
+        "<repository2 id>",
+        "<repository3 id>"
+  ],
+  "use_latest": true,
+  "version": "10"
+}
+```
+
+*Assigning systems to a content template*
+
+- *For system on RHEL 9.6 or RHEL 10 and later:*
+You can assign the template at registration time:
+```
+rhc connect --content-template=<template_name>
+```
+NOTE: Assigning a system to a template will overwrite any previously assigned template.
+NOTE: This method avoids the need to run `subscription-manager` separately.
+
+- *For systems before RHEL 9.6 and RHEL 10:*
+You can assign the template using the `patch` API:
+```
+PUT /patch/v3/templates/<template id>/systems
+{
+  "systems": [
+    "<system1 uuid>",
+    "<system2 uuid>"
+  ]
+}
+```
+NOTE: Assigning a system to a template will overwrite any previously assigned template.
+The system will pick up content from your assigned content template when refreshing `subscription-manager`:
+```
+rhc connect
+subscription-manager refresh
+```
+
+- *For all systems (without using rhc):*
+Alternatively, manually download the `config.repo` repository file for your system configuration:
+```
+curl -o /etc/yum.repos.d/template.repo  https://cert.console.redhat.com/api/content-sources/v1/templates/<template id>/config.repo
+```
+NOTE: Systems consuming a template in this manner will not properly report applicable errata within Insights. The previous methods with `rhc` and `subscription-manager` are recommended.
+
+*Updating system content*
+
+To apply the latest content updates from the template, run: `dnf update`
+
 === Advisor
 
 Get all active hits for the account:
