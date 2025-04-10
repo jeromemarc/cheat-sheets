@@ -326,6 +326,33 @@ Get all systems with a matching RHEL for x86 subscription:
 GET /rhsm-subscriptions/v1/instances/products/RHEL%20for%20x86
 ----
 
+=== Export Subscriptions
+
+Initiate an export request:
+----
+POST /export/v1/exports
+{
+  "name": "Subscriptions Export",
+  "format": "csv",
+  "sources": [
+    {
+      "application": "subscriptions", 
+      "resource": "subscriptions"
+    }  
+  ] 
+}
+----
+
+Retrieve export status request:
+----
+GET /exports/<export_id>/status
+----
+
+Download the generated export (as a zip file):
+----
+GET /exports/<export_id>
+----
+
 === Remediations
 
 Get a list of defined remediations:
