@@ -275,10 +275,19 @@ GET /vulnerability/v1/report/executive
 ----
 
 === Compliance
+Get a list of Security Content Automation Protocol (SCAP) policies
+----
+GET /compliance/v2/policies
+----
 
 Get systems associated with Security Content Automation Protocol (SCAP) policies:
 ----
-GET /compliance/v2/systems
+GET /compliance/v2/systems&filter=assigned_or_scanned=true
+----
+
+Associate a system to a Security Content Automation Protocol (SCAP) policy:
+----
+PATCH /compliance/v2/policies/<policy_id>/systems/<system_id>
 ----
 
 Retrieve a list of all available compliance reports:
