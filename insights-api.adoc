@@ -13,7 +13,7 @@ The Insights API provides secure REST services over HTTPS endpoints. This protec
 . Create a new service account on the https://console.redhat.com/iam/service-accounts[Red Hat Hybrid Cloud Console].
 . Obtain service account credentials (Client ID and Client Secret).
 . Add the service account to the applicable https://console.redhat.com/iam/user-access/groups[User Access Groups] (service accounts *do not* inherit permissions from Default access groups, so they must be granted access permissions by placing them in a User Group).
-. Generate an access token using Red Hat's single sign-on (SSO) technology using the service account credentials <client_id> and <client_secret >:
+. Generate an access token using Red Hat's single sign-on (SSO) technology using the service account credentials <client_id> and <client_secret>:
 +
 ----
 curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d "grant_type=client_credentials" -d "scope=api.console" -d client_id=<client_id> -d client_secret=<client_secret> 
