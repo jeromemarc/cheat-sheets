@@ -295,6 +295,11 @@ Retrieve a list of all available compliance reports:
 GET /compliance/v2/reports
 ----
 
+Retrieve a list of affected hosts for a compliance report:
+----
+GET /compliance/v2/reports/<report_id>/test_results
+----
+
 === Policies
 
 Get all defined policies:
