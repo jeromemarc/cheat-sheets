@@ -24,6 +24,8 @@ curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/
 Authorization: Bearer <access_token>
 ----
 
+NOTE: Access tokens are short-lived (about 15 minutes), so you will need to request a new one before it expires in order to continue making authenticated calls.
+
 === Red Hat API token authentication
 
 . Log in to the https://access.redhat.com/[Red Hat Customer Portal] with your username and password.
