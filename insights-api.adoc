@@ -98,6 +98,17 @@ Get a system’s tags:
 GET /inventory/v1/hosts/<uuid>/tags
 ----
 
+Get all hosts with a specific tag value
+----
+GET /inventory/v1/hosts?tags=insights-client/security=strict
+----
+or
+----
+GET /api/inventory/v1/hosts?tags=satellite/lifecycle_environment=prod
+----
+
+NOTE: Combine multiple tags in a single query by repeating the `tags=...` parameter (e.g., ?tags=satellite/lifecycle_environment=prod&tags=satellite/lifecycle_environment=stage)
+
 Get a subset of systems (using a filter on system profile):
 ----
 GET /inventory/v1/hosts?filter[system_profile][infrastructure_type]=virtual
