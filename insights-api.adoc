@@ -88,6 +88,8 @@ or
 GET /inventory/v1/hosts?filter[system_profile][operating_system][RHEL][version][eq]=8.5
 ----
 
+NOTE: Combine multiple filters in a single query by repeating the `filter[...]` parameter (e.g., `?filter[system_profile][infrastructure_type]=virtual&filter[system_profile][operating_system][RHEL][version][eq]=8.5`)
+
 Remove a system from inventory:
 ----
 DELETE /inventory/v1/hosts/<uuid>
