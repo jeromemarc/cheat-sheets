@@ -49,6 +49,21 @@ Additional information about Red Hat API Token authentication can be found in th
 
 *Important:* Basic authentication is now deprecated. Red Hat does not support basic authorization to connect to services' APIs. Token-based authentication is recommended. More information about transitioning from basic authentication to token-based authentication via service accounts is described on the https://access.redhat.com/articles/7036194[Red Hat Customer Portal].
 
+== Verify your setup
+
+Before diving into the API endpoints, let's make sure your authentication is working.
+
+Example: List the first 5 hosts in your inventory
+
+----
+curl -X GET \
+  "https://console.redhat.com/api/inventory/v1/hosts?per_page=5" \
+  -H "accept: application/json" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+----
+
+If you see a JSON response containing host data, your setup is correct and you are ready to explore more endpoints.
+
 
 == Common activities
 
