@@ -358,7 +358,7 @@ Get all systems triggering a policy:
 GET /policies/v1/policies/<policy_id>/history/trigger
 ----
 
-=== Patches
+=== Content advisories
 
 Get all applicable advisories for my systems (patches available):
 ----
