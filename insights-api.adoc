@@ -451,48 +451,46 @@ Get list of configured third party integrations:
 GET /integrations/v1/endpoints
 ----
 
-== Python examples
+== Python example
 
-The following Python code interacts with the Insights API using the `requests` library to abstract away the complexity of handling HTTP requests.
-
-----
-$ python -m pip install requests
-----
-
-=== Authentication
+The following Python code retrieves an access token from Red Hat SSO given the `<CLIENT_ID>` and `<CLIENT_SECRET>` provided. It then uses the token as part of the `Authorization` header of the API requests to fetch Insights inventory data.
 
 ----
->>> headers = {'Authorization': 'Bearer <access_token>'}
-----
+import requests
 
-=== GET
+def get_access_token(client_id, client_secret, scope="api.console"):
+    token_url = "https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token"
+    payload = {
+        "grant_type": "client_credentials",
+        "scope": scope,
+        "client_id": client_id,
+        "client_secret": client_secret
+    }
+    resp = requests.post(token_url, data=payload)
+    resp.raise_for_status()
+    return resp.json().get("access_token")
 
-----
->>> import requests
->>> insights_api_url = "https://console.redhat.com/api/inventory/v1/hosts"
->>> response = requests.get(insights_api_url, headers=headers)
->>> response.status_code
-200
->>> response.json()
-{'total': 1195, 'count': 50, 'page': 1, 'per_page': 50, 'results': [{'insights_id': '<uuid>', [...]
-----
+def list_hosts(token):
+    url = "https://console.redhat.com/api/inventory/v1/hosts"
+    headers = {"Authorization": f"Bearer {token}"}
+    resp = requests.get(url, headers=headers)
+    resp.raise_for_status()
+    return resp.json()
 
-=== POST
+if __name__ == "__main__":
+    client_id = "<CLIENT_ID>"
+    client_secret = "<CLIENT_SECRET>"
 
-----
->>> import requests
->>> insights_api_url = "https://console.redhat.com/api/policies/v1/policies?alsoStore=True"
->>> policy = {"name": "my_policy", "description": "My policy", "isEnabled": True, "conditions": "arch = \"x86_64\"", "actions": "notification"}
->>> response = requests.post(insights_api_url, headers=headers, json=policy)
->>> response.status_code
-201
->>> response.json()
-{'id': '<policy_id>', 'name': 'my_policy', 'description': 'My policy', 'isEnabled': True, 'conditions': 'arch = "x86_64"', 'actions': 'notification', 'mtime': '2024-10-17 15:23:02.942', 'ctime': '2024-10-17 15:23:02.942', 'lastTriggered': 0}
+    token = get_access_token(client_id, client_secret)
+    hosts = list_hosts(token)
+
+    print("Total hosts:", hosts.get("total"))
+    print("First host entry:", hosts.get("results", [])[0])
 ----
 
 == Ansible example
 
-The following Ansible playbook uses the `ansible.builtin.uri` module to interact with the Insights API.
+The following Ansible playbook retrieves an access token from Red Hat SSO given the `<CLIENT_ID>` and `<CLIENT_SECRET>` provided. It then uses the token as part of the `Authorization` header of the API requests to fetch Insights inventory data.
 
 ----
 ---
@@ -501,23 +499,43 @@ The following Ansible playbook uses the `ansible.builtin.uri` module to interact
   gather_facts: no
 
   vars:
+    client_id: "<CLIENT_ID>"
+    client_secret: "<CLIENT_SECRET>"
+    scope: "api.console"
+    sso_url: "https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token"
     insights_api_url: "https://console.redhat.com/api"
-    insights_auth: "Bearer <access_token>"
 
   tasks:
-  - name: Get Inventory
-    uri:
-      url: "{{ insights_api_url }}/inventory/v1/hosts/"
-      method: GET
-      return_content: yes
-      headers:
-         Authorization: "{{ insights_auth }}"
-      status_code: 200
-   register: result
+    - name: Obtain access token
+      uri:
+        url: "{{ sso_url }}"
+        method: POST
+        body:
+          grant_type: "client_credentials"
+          scope: "{{ scope }}"
+          client_id: "{{ client_id }}"
+          client_secret: "{{ client_secret }}"
+        body_format: form-urlencoded
+        return_content: yes
+      register: token_response
 
-  - name: Display inventory
-    debug:
-      var: result.json
+    - name: Set access token fact
+      set_fact:
+        access_token: "{{ token_response.json.access_token }}"
+
+    - name: Get Inventory
+      uri:
+        url: "{{ insights_api_url }}/inventory/v1/hosts/"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ access_token }}"
+        return_content: yes
+        status_code: 200
+      register: result
+
+    - name: Display inventory
+      debug:
+        var: result.json
 ----
 
 == Additional Resources
