@@ -463,6 +463,45 @@ Show life cycle information for a specific app stream (e.g. PHP 8.2):
 GET /roadmap/v1/lifecycle/app-streams?application_stream_name=PHP%208.2
 ----
 
+=== Runtimes Inventory
+
+List all JVM instances in the account:
+
+----
+GET /runtimes-inventory-service/v1/instances
+----
+NOTE: to retrieve instances for a specific host only, append the following query parameter: `?hostname=<hostname>`
+
+List all JVM instance IDs for a specific host:
+----
+GET /runtimes-inventory-service/v1/instance-ids?hostname=<hostname>
+----
+
+Retrieve an individual JVM instance by ID:
+----
+GET /runtimes-inventory-service/v1/instance?jvmInstanceId=<jvm_instance_id>
+----
+
+List all jar hashes associated with a specific JVM instance:
+----
+GET /runtimes-inventory-service/v1/jarhashes?jvmInstanceId=<jvm_instance_id>
+----
+
+List all EAP instances for a specific host:
+----
+GET /runtimes-inventory-service/v1/eap-instances?hostname=<hostname>
+----
+
+List all EAP instance IDs for a specific host:
+----
+GET /runtimes-inventory-service/v1/eap-instance-ids?hostname=<hostname>
+----
+
+Retrieve an individual EAP instance by ID:
+----
+GET /runtimes-inventory-service/v1/instance?eapInstanceId=<eap_instance_id>
+----
+
 == Python example
 
 The following Python code retrieves an access token from Red Hat SSO and uses it to fetch Insights inventory data from its API.
