@@ -453,15 +453,15 @@ GET /integrations/v1/endpoints
 
 === RHEL Appliaction Streams life cycle
 
-List RHEL 9 app stream names
----
+List RHEL 9 app stream names:
+----
 GET /roadmap/v1/lifecycle/app-streams/9/streams
----
+----
 
-Show life cycle information for a specific app stream (e.g. PHP 8.2)
----
+Show life cycle information for a specific app stream (e.g. PHP 8.2):
+----
 GET /roadmap/v1/lifecycle/app-streams?application_stream_name=PHP%208.2
----
+----
 
 == Python example
 
