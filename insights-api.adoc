@@ -681,3 +681,6 @@ The following Ansible playbook retrieves an access token from Red Hat SSO and us
 == Additional resources
 
 * https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html/using_the_red_hat_insights_api/index[Using the Red Hat Lightspeed API] – Comprehensive documentation on authentication, endpoints, and usage of the Lightspeed API.
+
+'''
+_Last updated: November 2025_
