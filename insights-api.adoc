@@ -17,17 +17,17 @@ NOTE: All example queries in this cheat sheet use the base endpoint: https://con
 ** <<host-inventory,Host inventory>>
 ** <<export-inventory,Export inventory>>
 ** <<image-builder,Image builder>>
-** <<repositories-content-templates,Repositories and content templates>>
+** <<content-advisories,Content advisories>>
+** <<repositories-templates,Repositories and templates>>
 ** <<advisor,Advisor>>
+** <<policies,Policies>>
 ** <<vulnerabilities,Vulnerabilities>>
 ** <<compliance,Compliance>>
-** <<policies,Policies>>
-** <<content-advisories,Content advisories>>
+** <<rhel-application-streams-life-cycle,RHEL appliaction streams life cycle>>
 ** <<subscriptions,Subscriptions>>
 ** <<export-subscriptions,Export subscriptions>>
 ** <<remediations,Remediations>>
 ** <<integrations-notifications,Integrations and notifications>>
-** <<rhel-application-streams-life-cycle,RHEL appliaction streams life cycle>>
 ** <<runtimes-inventory,Runtimes inventory>>
 * <<python-example,Python example>>
 * <<ansible-example,Ansible example>>
@@ -257,8 +257,16 @@ GET /image-builder/v1/composes/<compose_id>
 
 Related blog post on https://www.redhat.com/en/blog/using-hosted-image-builder-its-api[Using hosted image builder via its API].
 
-[[repositories-content-templates]]
-=== Repositories and content templates
+[[content-advisories]]
+=== Content advisories
+
+Get all applicable advisories for my systems (patches available):
+----
+GET /patch/v3/export/advisories
+----
+
+[[repositories-templates]]
+=== Repositories and templates
 
 This section documents the `content-sources` endpoint for managing repositories and content templates in Red Hat Lightspeed.
 
@@ -368,6 +376,33 @@ Get summary of all hits for a given system :
 GET /insights/v1/system/<uuid>
 ----
 
+[[policies]]
+=== Policies
+
+Get all defined policies:
+----
+GET /policies/v1/policies
+----
+
+Create a new policy:
+----
+POST /policies/v1/policies
+{
+  "name": "my_policy",
+  "description": "My policy",
+  "isEnabled": true,
+  "conditions": "arch = \"x86_64\"",
+  "actions": "notification"
+}
+----
+
+NOTE: `DELETE` and `PUT` operations are also available on `/policies/<policy_id>`.
+
+Get all systems triggering a policy:
+----
+GET /policies/v1/policies/<policy_id>/history/trigger
+----
+
 [[vulnerabilities]]
 === Vulnerabilities
 
@@ -409,39 +444,17 @@ Retrieve a list of affected hosts for a compliance report:
 GET /compliance/v2/reports/<report_id>/test_results
 ----
 
-[[policies]]
-=== Policies
+[[rhel-application-streams-life-cycle]]
+=== RHEL appliaction streams life cycle
 
-Get all defined policies:
+List RHEL 9 app stream names:
 ----
-GET /policies/v1/policies
-----
-
-Create a new policy:
-----
-POST /policies/v1/policies
-{
-  "name": "my_policy",
-  "description": "My policy",
-  "isEnabled": true,
-  "conditions": "arch = \"x86_64\"",
-  "actions": "notification"
-}
+GET /roadmap/v1/lifecycle/app-streams/9/streams
 ----
 
-NOTE: `DELETE` and `PUT` operations are also available on `/policies/<policy_id>`.
-
-Get all systems triggering a policy:
+Show life cycle information for a specific app stream (e.g. PHP 8.2):
 ----
-GET /policies/v1/policies/<policy_id>/history/trigger
-----
-
-[[content-advisories]]
-=== Content advisories
-
-Get all applicable advisories for my systems (patches available):
-----
-GET /patch/v3/export/advisories
+GET /roadmap/v1/lifecycle/app-streams?application_stream_name=PHP%208.2
 ----
 
 [[subscriptions]]
@@ -532,19 +545,6 @@ GET /notifications/v1/notifications/events?endDate=2021-11-23&limit=20&offset=0&
 Get list of configured third party integrations:
 ----
 GET /integrations/v1/endpoints
-----
-
-[[rhel-application-streams-life-cycle]]
-=== RHEL appliaction streams life cycle
-
-List RHEL 9 app stream names:
-----
-GET /roadmap/v1/lifecycle/app-streams/9/streams
-----
-
-Show life cycle information for a specific app stream (e.g. PHP 8.2):
-----
-GET /roadmap/v1/lifecycle/app-streams?application_stream_name=PHP%208.2
 ----
 
 [[runtimes-inventory]]
