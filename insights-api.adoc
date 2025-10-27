@@ -6,6 +6,15 @@ Red Hat Lightspeed allows you to investigate and make changes to the configurati
 
 NOTE: All example queries in this cheat sheet use the base endpoint: https://console.redhat.com/api/
 
+== Table of Contents
+* <<authentication,Authentication>>
+* <<verify-your-setup,Verify your setup>>
+* <<common-activities,Common activities>>
+* <<python-example,Python example>>
+* <<ansible-example,Ansible example>>
+* <<additional-resources,Additional resources>>
+
+[[authentication]]
 == Authentication
 
 The Lightspeed API provides secure REST services over HTTPS endpoints. This protects authentication credentials in transit.
@@ -49,6 +58,7 @@ Additional information about Red Hat API Token authentication can be found in th
 
 *Important:* Basic authentication is now deprecated. Red Hat does not support basic authorization to connect to services' APIs. Token-based authentication is recommended. More information about transitioning from basic authentication to token-based authentication via service accounts is described on the https://access.redhat.com/articles/7036194[Red Hat Customer Portal].
 
+[[verify-your-setup]]
 == Verify your setup
 
 Before diving into the API endpoints, let's make sure your authentication is working.
@@ -100,6 +110,7 @@ If the request fails, check the following common responses:
 
 NOTE: Use `-v` (verbose mode) with `curl` to see full request and response headers. This helps identify whether the issue is authentication, endpoint URL, or network-related.
 
+[[common-activities]]
 == Common activities
 
 === Host inventory
@@ -537,6 +548,7 @@ Retrieve an individual EAP instance by ID:
 GET /runtimes-inventory-service/v1/instance?eapInstanceId=<eap_instance_id>
 ----
 
+[[python-example]]
 == Python example
 
 The following Python code retrieves an access token from Red Hat SSO and uses it to fetch Lightspeed inventory data from its API.
@@ -575,6 +587,7 @@ if __name__ == "__main__":
     print("First host entry:", hosts.get("results", [])[0])
 ----
 
+[[ansible-example]]
 == Ansible example
 
 The following Ansible playbook retrieves an access token from Red Hat SSO and uses it to fetch Lightspeed inventory data from its API.
@@ -625,6 +638,7 @@ The following Ansible playbook retrieves an access token from Red Hat SSO and us
         var: result.json
 ----
 
-== Additional Resources
+[[additional-resources]]
+== Additional resources
 
 * https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html/using_the_red_hat_insights_api/index[Using the Red Hat Lightspeed API] – Comprehensive documentation on authentication, endpoints, and usage of the Lightspeed API.
