@@ -64,6 +64,41 @@ curl -X GET \
 
 If you see a JSON response containing host data, your setup is correct and you are ready to explore more endpoints.
 
+=== Troubleshooting common failures
+
+If the request fails, check the following common responses:
+
+[cols="1,2,2,2", options="header"]
+|===
+| HTTP Code | Meaning | Likely Cause | How to Fix
+
+| 401 Unauthorized
+| Authentication failed
+| The access token is missing, expired, or invalid
+| Ensure the token is still valid or generate a new token. Verify the `Authorization` header syntax: `Bearer <token>`.
+
+| 403 Forbidden
+| Access denied
+| Your account or token lacks permissions for the Lightspeed API
+| Check your organization’s https://console.redhat.com/iam/user-access/groups[role-based access control] (RBAC) settings in the Red Hat Hybrid Cloud Console. Ensure the service account has the appropriate permissions.
+
+| 404 Not Found
+| Invalid endpoint
+| URL typo or wrong API path
+| Verify the endpoint path — for example, `/api/inventory/v1/hosts`.
+
+| 500 Internal Server Error
+| Server-side issue
+| Temporary Lightspeed API outage or internal error
+| Retry later or check https://status.redhat.com[status.redhat.com].
+
+| 502 / 503 Gateway Errors
+| Platform temporarily unavailable
+| Maintenance or connectivity issue
+| Wait a few minutes and try again.
+|===
+
+NOTE: Use `-v` (verbose mode) with `curl` to see full request and response headers. This helps identify whether the issue is authentication, endpoint URL, or network-related.
 
 == Common activities
 
