@@ -457,6 +457,8 @@ Show life cycle information for a specific app stream (e.g. PHP 8.2):
 GET /roadmap/v1/lifecycle/app-streams?application_stream_name=PHP%208.2
 ----
 
+Related Knowledgebase article on https://access.redhat.com/articles/7129267[How to query the Red Hat Lightspeed API for Red Hat Enterprise Linux Application Streams life cycle information?]
+
 [[subscriptions]]
 === Subscriptions
 
