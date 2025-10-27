@@ -1,14 +1,14 @@
-= Red Hat Insights API
+= Red Hat Lightspeed API
 :experimental: true
 :product-name:
 
-Red Hat Insights allows you to investigate and make changes to the configuration of hosts managed by Red Hat through REST APIs. This cheat sheet covers the basic APIs. Refer to https://console.redhat.com/docs/api[https://console.redhat.com/docs/api] for the latest API specifications and deprecations.
+Red Hat Lightspeed allows you to investigate and make changes to the configuration of hosts managed by Red Hat through REST APIs. This cheat sheet covers the basic APIs. Refer to https://console.redhat.com/docs/api[https://console.redhat.com/docs/api] for the latest API specifications and deprecations.
 
 NOTE: All example queries in this cheat sheet use the base endpoint: https://console.redhat.com/api/
 
 == Authentication
 
-The Insights API provides secure REST services over HTTPS endpoints. This protects authentication credentials in transit.
+The Lightspeed API provides secure REST services over HTTPS endpoints. This protects authentication credentials in transit.
 
 === Red Hat token-based authentication via service account (recommended)
 
@@ -187,7 +187,7 @@ Related blog post on https://www.redhat.com/en/blog/using-hosted-image-builder-i
 
 === Repositories and Content Templates
 
-This section documents the `content-sources` endpoint for managing repositories and content templates in Red Hat Insights.
+This section documents the `content-sources` endpoint for managing repositories and content templates in Red Hat Lightspeed.
 
 *Managing repositories*
 
@@ -264,7 +264,7 @@ Alternatively, manually download the `config.repo` repository file for your syst
 ```
 curl -o /etc/yum.repos.d/template.repo  https://cert.console.redhat.com/api/content-sources/v1/templates/<template id>/config.repo
 ```
-NOTE: Systems consuming a template in this manner will not properly report applicable errata within Insights. The previous methods with `rhc` and `subscription-manager` are recommended.
+NOTE: Systems consuming a template in this manner will not properly report applicable errata within Lightspeed. The previous methods with `rhc` and `subscription-manager` are recommended.
 
 *Updating system content*
 
@@ -441,7 +441,7 @@ POST /remediations/v1/remediations/<remediation_id>/playbook_runs
 
 === Integrations and notifications
 
-Get event log history for a list of last triggered Insights events and actions:
+Get event log history for a list of last triggered Lightspeed events and actions:
 ----
 GET /notifications/v1/notifications/events?endDate=2021-11-23&limit=20&offset=0&sortBy=created%3ADESC&startDate=2021-11-09
 ----
@@ -504,7 +504,7 @@ GET /runtimes-inventory-service/v1/instance?eapInstanceId=<eap_instance_id>
 
 == Python example
 
-The following Python code retrieves an access token from Red Hat SSO and uses it to fetch Insights inventory data from its API.
+The following Python code retrieves an access token from Red Hat SSO and uses it to fetch Lightspeed inventory data from its API.
 
 ----
 import os
@@ -542,7 +542,7 @@ if __name__ == "__main__":
 
 == Ansible example
 
-The following Ansible playbook retrieves an access token from Red Hat SSO and uses it to fetch Insights inventory data from its API.
+The following Ansible playbook retrieves an access token from Red Hat SSO and uses it to fetch Lightspeed inventory data from its API.
 
 ----
 ---
@@ -592,4 +592,4 @@ The following Ansible playbook retrieves an access token from Red Hat SSO and us
 
 == Additional Resources
 
-* https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html/using_the_red_hat_insights_api/index[Using the Red Hat Insights API] – Comprehensive documentation on authentication, endpoints, and usage of the Insights API.
+* https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html/using_the_red_hat_insights_api/index[Using the Red Hat Lightspeed API] – Comprehensive documentation on authentication, endpoints, and usage of the Lightspeed API.
