@@ -260,6 +260,9 @@ Get the status of a compose image request
 GET /image-builder/v1/composes/<compose_id>
 ----
 
+Possible status values include `pending`, `building`, `success`, `failure` or `expired`.
+Typical build times range from ~30 seconds (small images) to ~5 minutes (larger or multi-repository builds).
+
 Related blog post on https://www.redhat.com/en/blog/using-hosted-image-builder-its-api[Using hosted image builder via its API].
 
 [[content-advisories]]
