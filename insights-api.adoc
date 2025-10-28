@@ -422,6 +422,8 @@ Retrieve a list of affected hosts for a compliance report:
 GET /compliance/v2/reports/<report_id>/test_results
 ----
 
+Related blog post on https://www.redhat.com/en/blog/red-hat-compliance-service-and-red-hat-insights-api[Red Hat Compliance service and the Red Hat Lightspeed API].
+
 [[life-cycle-roadmap]]
 === Life cycle and roadmap
 
@@ -531,6 +533,8 @@ Get list of configured third party integrations:
 ----
 GET /integrations/v1/endpoints
 ----
+
+Related blog post on https://www.redhat.com/en/blog/exploring-custom-collection-pulling-data-red-hat-insights-apis-event-driven-ansible[Exploring a custom collection for pulling data from Red Hat Lightspeed APIs to Event-Driven Ansible.
 
 [[runtimes-inventory]]
 === Runtimes inventory
