@@ -437,7 +437,7 @@ Show life cycle information for a specific application stream (e.g. PHP 8.2):
 GET /roadmap/v1/lifecycle/app-streams?application_stream_name=PHP%208.2
 ----
 
-Related Knowledgebase article on https://access.redhat.com/articles/7129267[How to query the Red Hat Lightspeed API for Red Hat Enterprise Linux Application Streams life cycle information?]
+Related Knowledgebase article on https://access.redhat.com/articles/7129267[How to query the Red Hat Lightspeed API for Red Hat Enterprise Linux Application Streams life cycle information?].
 
 Show life cycle data for supported RHEL versions and end-of-life (EOL) dates:
 ----
@@ -534,7 +534,7 @@ Get list of configured third party integrations:
 GET /integrations/v1/endpoints
 ----
 
-Related blog post on https://www.redhat.com/en/blog/exploring-custom-collection-pulling-data-red-hat-insights-apis-event-driven-ansible[Exploring a custom collection for pulling data from Red Hat Lightspeed APIs to Event-Driven Ansible.
+Related blog post on https://www.redhat.com/en/blog/exploring-custom-collection-pulling-data-red-hat-insights-apis-event-driven-ansible[Exploring a custom collection for pulling data from Red Hat Lightspeed APIs to Event-Driven Ansible].
 
 [[runtimes-inventory]]
 === Runtimes inventory
