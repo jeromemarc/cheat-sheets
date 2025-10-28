@@ -40,21 +40,27 @@ The Lightspeed API provides secure REST services over HTTPS endpoints. This prot
 [[token-based-authentication-service-account]]
 === Red Hat token-based authentication via service account (recommended)
 
-. Create a new service account on the https://console.redhat.com/iam/service-accounts[Red Hat Hybrid Cloud Console].
-. Obtain service account credentials (Client ID and Client Secret).
-. Add the service account to the applicable https://console.redhat.com/iam/user-access/groups[User Access Groups] (service accounts *do not* inherit permissions from Default access groups, so they must be granted access permissions by placing them in a User Group).
-. Generate an access token using Red Hat's single sign-on (SSO) technology using the service account credentials <client_id> and <client_secret>:
+. Create a new service account on the https://console.redhat.com/iam/service-accounts[Red Hat Hybrid Cloud Console]:
+.. Go to https://console.redhat.com/iam/service-accounts
+.. Click on Create service account.
+.. Copy the generated Client ID and Client Secret.
+. Add the service account to the applicable https://console.redhat.com/iam/user-access/groups[User Access Groups]. Service accounts *do not* inherit permissions from Default access groups, so you must assign them explicitly under https://console.redhat.com/iam/user-access/groups[User Access > Groups]).
+. Generate an access token using Red Hat's single sign-on (SSO) service:
 +
 ----
-curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d "grant_type=client_credentials" -d "scope=api.console" -d client_id=<client_id> -d client_secret=<client_secret> 
+curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token \
+  -d "grant_type=client_credentials" \
+  -d "scope=api.console" \
+  -d client_id=<client_id> \
+  -d client_secret=<client_secret> 
 ----
-. Red Hat's SSO will respond with a JSON object containing an access token. This access token can be used to make authenticated requests to APIs by including the access_token generated in the previous step in an `Authorization: Bearer` HTTP header in your request:
+. Use the returned `access_token` to authenticate API calls:
 +
 ----
 Authorization: Bearer <access_token>
 ----
 
-NOTE: Access tokens are short-lived (about 15 minutes), so you will need to request a new one before it expires in order to continue making authenticated calls.
+NOTE: Access tokens are short-lived (about 15 minutes), so you need to request a new one before it expires in order to continue making authenticated calls.
 
 [[api-token-based-authentication]]
 === Red Hat API token authentication
