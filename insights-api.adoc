@@ -16,6 +16,7 @@ NOTE: All example queries in this cheat sheet use the base endpoint: https://con
 * <<common-activities,Common activities>>
 ** <<host-inventory,Host inventory>>
 ** <<export-inventory,Export inventory>>
+** <<workspaces,Workspaces>>
 ** <<image-builder,Image builder>>
 ** <<content-advisories,Content advisories>>
 ** <<repositories-templates,Repositories and templates>>
@@ -227,6 +228,48 @@ Download the generated export (as a zip file):
 ----
 GET /exports/<export_id>
 ----
+
+[[workspaces]]
+=== Workspaces (Inventory groups)
+
+Workspaces (inventory groups) can be used to organize and manage systems by environment, team, or purpose. 
+
+List all workspaces:
+----
+GET /inventory/v1/groups
+----
+
+Get details for a specific workspace:
+----
+GET /inventory/v1/groups/<group_id>
+----
+
+Create a new workspace:
+----
+POST /inventory/v1/groups
+{
+  "name": "Production",
+  "description": "All production systems"
+}
+----
+
+Add systems to a workspace:
+----
+POST /inventory/v1/groups/<group_id>/hosts
+{ "hosts": ["<system_uuid_1>", "<system_uuid_2>"] }
+----
+
+Remove a system from a workspace:
+----
+DELETE /inventory/v1/groups/<group_id>/hosts/<system_uuid>
+----
+
+Delete a workspace:
+----
+DELETE /inventory/v1/groups/<group_id>
+----
+
+Related Knowledgebase article on https://access.redhat.com/solutions/7063192[How to automate the process of assigning systems to groups/workspaces in Lightspeed?].
 
 [[image-builder]]
 === Image builder
