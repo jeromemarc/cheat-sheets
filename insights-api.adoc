@@ -20,7 +20,6 @@ NOTE: All example queries in this cheat sheet use the base endpoint: https://con
 ** <<content-advisories,Content advisories>>
 ** <<repositories-templates,Repositories and templates>>
 ** <<advisor,Advisor>>
-** <<policies,Policies>>
 ** <<vulnerabilities,Vulnerabilities>>
 ** <<compliance,Compliance>>
 ** <<life-cycle-roadmap,Life cycle and roadmap>>
@@ -374,33 +373,6 @@ GET /insights/v1/export/hits?has_playbook=true
 Get summary of all hits for a given system :
 ----
 GET /insights/v1/system/<uuid>
-----
-
-[[policies]]
-=== Policies
-
-Get all defined policies:
-----
-GET /policies/v1/policies
-----
-
-Create a new policy:
-----
-POST /policies/v1/policies
-{
-  "name": "my_policy",
-  "description": "My policy",
-  "isEnabled": true,
-  "conditions": "arch = \"x86_64\"",
-  "actions": "notification"
-}
-----
-
-NOTE: `DELETE` and `PUT` operations are also available on `/policies/<policy_id>`.
-
-Get all systems triggering a policy:
-----
-GET /policies/v1/policies/<policy_id>/history/trigger
 ----
 
 [[vulnerabilities]]
