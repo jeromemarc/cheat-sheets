@@ -36,7 +36,7 @@ NOTE: All example queries in this cheat sheet use the base endpoint: https://con
 [[authentication]]
 == Authentication
 
-The Lightspeed API provides secure REST services over HTTPS endpoints. This protects authentication credentials in transit.
+The Red Hat Lightspeed API provides secure REST services over HTTPS endpoints. This protects authentication credentials in transit.
 
 [[token-based-authentication-service-account]]
 === Red Hat token-based authentication via service account (recommended)
@@ -118,7 +118,7 @@ If the request fails, check the following common responses:
 
 | 403 Forbidden
 | Access denied
-| Your account or token lacks permissions for the Lightspeed API
+| Your account or token lacks permissions for the Red Hat Lightspeed API
 | Check your organization’s https://console.redhat.com/iam/user-access/groups[role-based access control] (RBAC) settings in the Red Hat Hybrid Cloud Console. Ensure the service account has the appropriate permissions.
 
 | 404 Not Found
@@ -128,7 +128,7 @@ If the request fails, check the following common responses:
 
 | 500 Internal Server Error
 | Server-side issue
-| Temporary Lightspeed API outage or internal error
+| Temporary Red Hat Lightspeed API outage or internal error
 | Retry later or check https://status.redhat.com[status.redhat.com].
 
 | 502 / 503 Gateway Errors
@@ -269,7 +269,7 @@ Delete a workspace:
 DELETE /inventory/v1/groups/<group_id>
 ----
 
-Related Knowledgebase article on https://access.redhat.com/solutions/7063192[How to automate the process of assigning systems to groups/workspaces in Lightspeed?].
+Related Knowledgebase article on https://access.redhat.com/solutions/7063192[How to automate the process of assigning systems to groups/workspaces in Red Hat Lightspeed?].
 
 [[image-builder]]
 === Image builder
@@ -396,7 +396,7 @@ Alternatively, manually download the `config.repo` repository file for your syst
 ```
 curl -o /etc/yum.repos.d/template.repo  https://cert.console.redhat.com/api/content-sources/v1/templates/<template id>/config.repo
 ```
-NOTE: Systems consuming a template in this manner will not properly report applicable errata within Lightspeed. The previous methods with `rhc` and `subscription-manager` are recommended.
+NOTE: Systems consuming a template in this manner will not properly report applicable errata within Red Hat Lightspeed. The previous methods with `rhc` and `subscription-manager` are recommended.
 
 *Updating system content*
 
@@ -570,7 +570,7 @@ POST /remediations/v1/remediations/<remediation_id>/playbook_runs
 [[integrations-notifications]]
 === Integrations and notifications
 
-Get event log history for a list of last triggered Lightspeed events and actions:
+Get event log history for a list of last triggered Red Hat Lightspeed events and actions:
 ----
 GET /notifications/v1/notifications/events?endDate=2021-11-23&limit=20&offset=0&sortBy=created%3ADESC&startDate=2021-11-09
 ----
@@ -625,7 +625,7 @@ GET /runtimes-inventory-service/v1/instance?eapInstanceId=<eap_instance_id>
 [[python-example]]
 == Python example
 
-The following Python code retrieves an access token from Red Hat SSO and uses it to fetch Lightspeed inventory data from its API.
+The following Python code retrieves an access token from Red Hat SSO and uses it to fetch Red Hat Lightspeed inventory data from its API.
 
 ----
 import os
@@ -664,7 +664,7 @@ if __name__ == "__main__":
 [[ansible-example]]
 == Ansible example
 
-The following Ansible playbook retrieves an access token from Red Hat SSO and uses it to fetch Lightspeed inventory data from its API.
+The following Ansible playbook retrieves an access token from Red Hat SSO and uses it to fetch Red Hat Lightspeed inventory data from its API.
 
 ----
 ---
@@ -719,7 +719,7 @@ The following Ansible playbook retrieves an access token from Red Hat SSO and us
 * https://access.redhat.com/support/insights[Red Hat Lightspeed – Information & Resources] – Webinars, demos, integration guides.
 * https://developers.redhat.com/cheat-sheets/red-hat-insights-api-cheat-sheet[Red Hat Lightspeed API Cheat Sheet] – Latest version of this cheatsheet.
 * https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html/using_the_red_hat_insights_api/index[Using the Red Hat Lightspeed API] – Overview of authentication, endpoints, and usage.
-* https://console.redhat.com/docs/api[Lightspeed API Documentation] – Full list of endpoints and supported parameters.
+* https://console.redhat.com/docs/api[Red Hat Lightspeed API Documentation] – Full list of endpoints and supported parameters.
 
 '''
 _Last updated: November 2025_
