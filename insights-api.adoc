@@ -29,6 +29,7 @@ NOTE: All example queries in this cheat sheet use the base endpoint: https://con
 ** <<remediations,Remediations>>
 ** <<integrations-notifications,Integrations and notifications>>
 ** <<runtimes-inventory,Runtimes inventory>>
+** <<cost-management,Cost management>>
 * <<python-example,Python example>>
 * <<ansible-example,Ansible example>>
 * <<ai-mcp-integration,AI / MCP Integration (optional)>>
@@ -622,6 +623,15 @@ Retrieve an individual EAP instance by ID:
 ----
 GET /runtimes-inventory-service/v1/instance?eapInstanceId=<eap_instance_id>
 ----
+
+[[cost-management]]
+=== Cost mamagement
+Red Hat Lightspeed Cost Management provides visibility into cloud and infrastructure spend.
+
+- https://github.com/project-koku/costmgmt-api-cheatsheet/blob/master/costmgmt-api-cheatsheet.pdf[API cheat sheet] - For API-based access to cost data (recommended for automation and reporting).
+
+- https://developers.redhat.com/cheat-sheets/red-hat-lightspeed-cost-management-cheat-sheet[Getting started guide] - For initial setup and usage of the Cost Management service.
+
 
 [[python-example]]
 == Python example
