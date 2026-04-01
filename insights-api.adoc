@@ -31,6 +31,7 @@ NOTE: All example queries in this cheat sheet use the base endpoint: https://con
 ** <<runtimes-inventory,Runtimes inventory>>
 * <<python-example,Python example>>
 * <<ansible-example,Ansible example>>
+* <<ai-mcp-integration,AI / MCP Integration (optional)>>
 * <<additional-resources,Additional resources>>
 
 [[authentication]]
@@ -711,6 +712,14 @@ The following Ansible playbook retrieves an access token from Red Hat SSO and us
       debug:
         var: result.json
 ----
+
+[[ai-mcp-integration]]
+== AI / MCP Integration (optional)
+
+The Model Context Protocol (MCP) provides a standard way to connect APIs to LLM-based tools and agents.
+
+An example implementation for Red Hat Lightspeed is available on https://github.com/RedHatInsights/insights-mcp[insights-mcp] GitHub repository.
+
 
 [[additional-resources]]
 == Additional resources
