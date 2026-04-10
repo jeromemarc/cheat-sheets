@@ -54,8 +54,8 @@ The Red Hat Lightspeed API provides secure REST services over HTTPS endpoints. T
 curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token \
   -d "grant_type=client_credentials" \
   -d "scope=api.console" \
-  -d client_id=<client_id> \
-  -d client_secret=<client_secret> 
+  -d "client_id=<client_id>" \
+  -d "client_secret=<client_secret>" 
 ----
 . Use the returned `access_token` to authenticate API calls:
 +
@@ -152,7 +152,7 @@ Get all hosts in the account:
 GET /inventory/v1/hosts
 ----
 
-NOTE: Filtering by staleness satus ensures that only relevant systems are queried (e.g., `&staleness=fresh` or `&staleness=stale`)
+NOTE: Filtering by staleness status ensures that only relevant systems are queried (e.g., `&staleness=fresh` or `&staleness=stale`)
 
 Get system details (e.g., after registration, using the UUID provided):
 ----
@@ -336,7 +336,7 @@ POST /content-sources/v1.0/repositories/
 {
   "distribution_arch": "x86_64",
   "distribution_versions": ["10"],
-  "gpg_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\...\n-----END PGP PUBLIC KEY BLOCK-----",
+  "gpg_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n...\n-----END PGP PUBLIC KEY BLOCK-----",
   "metadata_verification": false,
   "module_hotfixes": false,
   "name": "EPEL 10 Everything x86_64",
@@ -541,7 +541,7 @@ Create a new remediation and assign systems:
 POST /remediations/v1/remediations
 {
   "name": "Fix Critical CVEs",
-  "archived": true,
+  "archived": false,
   "auto_reboot": true,
   "add": {
     "issues": [
@@ -625,7 +625,7 @@ GET /runtimes-inventory-service/v1/instance?eapInstanceId=<eap_instance_id>
 ----
 
 [[cost-management]]
-=== Cost mamagement
+=== Cost management
 Red Hat Lightspeed Cost Management provides visibility into cloud and infrastructure spend.
 
 - https://github.com/project-koku/costmgmt-api-cheatsheet/blob/master/costmgmt-api-cheatsheet.pdf[API cheat sheet] - For API-based access to cost data (recommended for automation and reporting).
@@ -741,4 +741,4 @@ An example implementation for Red Hat Lightspeed is available on https://github.
 * https://console.redhat.com/docs/api[Red Hat Lightspeed API Documentation] – Full list of endpoints and supported parameters.
 
 '''
-_Last updated: November 2025_
+_Last updated: April 2026_
