@@ -390,7 +390,7 @@ PUT /patch/v3/templates/<template id>/systems
 }
 ----
 NOTE: Assigning a system to a template will overwrite any previously assigned template.
-The system will pick up content from your assigned content template when refreshing `subscription-manager`:
+The system will pick up content from your assigned content template when refreshing `subscription-manager`.
 ----
 rhc connect
 subscription-manager refresh
