@@ -4,7 +4,7 @@
 
 Red Hat Lightspeed allows you to investigate and make changes to the configuration of hosts managed by Red Hat through REST APIs. This cheat sheet covers the basic APIs. Refer to https://console.redhat.com/docs/api[https://console.redhat.com/docs/api] for the latest API specifications and deprecations.
 
-NOTE: All example queries in this cheat sheet use the base endpoint: https://console.redhat.com/api/
+NOTE: All example queries in this cheat sheet use the base endpoint: https://console.redhat.com/api/.
 
 == Table of Contents
 * <<authentication,Authentication>>
@@ -73,7 +73,10 @@ NOTE: Access tokens are short-lived (about 15 minutes), so you need to request a
 . Generate an access token, submitting the offline token generated in the previous step:
 +
 ----
-curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token -d grant_type=refresh_token -d client_id=rhsm-api -d refresh_token=<offline_token>
+curl https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token \
+  -d "grant_type=refresh_token" \
+  -d "client_id=rhsm-api" \
+  -d "refresh_token=<offline_token>"
 ----
 . Include the access token generated in the previous step in an `Authorization: Bearer` HTTP header in your request:
 +
@@ -152,7 +155,7 @@ Get all hosts in the account:
 GET /inventory/v1/hosts
 ----
 
-NOTE: Filtering by staleness status ensures that only relevant systems are queried (e.g., `&staleness=fresh` or `&staleness=stale`)
+NOTE: Filtering by staleness status ensures that only relevant systems are queried (e.g., `&staleness=fresh` or `&staleness=stale`).
 
 Get system details (e.g., after registration, using the UUID provided):
 ----
@@ -164,7 +167,7 @@ Get all facts from a system' system profile:
 GET /inventory/v1/hosts/<uuid>/system_profile
 ----
 
-NOTE: Optimize queries by specifying only the required facts using the `fields` parameter (e.g., `?fields[system_profile]=arch&fields[system_profile]=cpu_model&fields[system_profile]=os_release`)
+NOTE: Optimize queries by specifying only the required facts using the `fields` parameter (e.g., `?fields[system_profile]=arch&fields[system_profile]=cpu_model&fields[system_profile]=os_release`).
 
 Get hosts and retrieve system profile fields in one request:
 ----
@@ -185,7 +188,7 @@ or
 GET /api/inventory/v1/hosts?tags=satellite/lifecycle_environment=prod
 ----
 
-NOTE: Combine multiple tags in a single query by repeating the `tags=...` parameter (e.g., ?tags=satellite/lifecycle_environment=prod&tags=satellite/lifecycle_environment=stage)
+NOTE: Combine multiple tags in a single query by repeating the `tags=...` parameter (e.g., ?tags=satellite/lifecycle_environment=prod&tags=satellite/lifecycle_environment=stage).
 
 Get a subset of systems (using a filter on system profile):
 ----
@@ -196,7 +199,7 @@ or
 GET /inventory/v1/hosts?filter[system_profile][operating_system][RHEL][version][eq]=8.5
 ----
 
-NOTE: Combine multiple filters in a single query by repeating the `filter[...]` parameter (e.g., `?filter[system_profile][infrastructure_type]=virtual&filter[system_profile][operating_system][RHEL][version][eq]=8.5`)
+NOTE: Combine multiple filters in a single query by repeating the `filter[...]` parameter (e.g., `?filter[system_profile][infrastructure_type]=virtual&filter[system_profile][operating_system][RHEL][version][eq]=8.5`).
 
 Remove a system from inventory:
 ----
@@ -336,7 +339,7 @@ POST /content-sources/v1.0/repositories/
 {
   "distribution_arch": "x86_64",
   "distribution_versions": ["10"],
-  "gpg_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n...\n-----END PGP PUBLIC KEY BLOCK-----",
+  "gpg_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n...[key content]...\n-----END PGP PUBLIC KEY BLOCK-----",
   "metadata_verification": false,
   "module_hotfixes": false,
   "name": "EPEL 10 Everything x86_64",
@@ -344,12 +347,12 @@ POST /content-sources/v1.0/repositories/
   "url": "https://dl.fedoraproject.org/pub/epel/10/Everything/x86_64/"
 }
 ----
-NOTE: to create multiple repositories at once, use the bulk API: `POST /content-sources/v1.0/repositories/bulk_create/`
+NOTE: to create multiple repositories at once, use the bulk API: `POST /content-sources/v1.0/repositories/bulk_create/`.
 
 *Managing content templates*
 
 Create a new content template
-```
+----
 POST /content-sources/v1.0/templates/
 {
   "arch": "x86_64",
@@ -363,21 +366,21 @@ POST /content-sources/v1.0/templates/
   "use_latest": true,
   "version": "10"
 }
-```
+----
 
 *Assigning systems to a content template*
 
 - *For system on RHEL 9.6 or RHEL 10 and later:*
 You can assign the template at registration time:
-```
+----
 rhc connect --content-template=<template_name>
-```
+----
 NOTE: Assigning a system to a template will overwrite any previously assigned template.
 NOTE: This method avoids the need to run `subscription-manager` separately.
 
 - *For systems before RHEL 9.6 and RHEL 10:*
 You can assign the template using the `patch` API:
-```
+----
 PUT /patch/v3/templates/<template id>/systems
 {
   "systems": [
@@ -385,19 +388,19 @@ PUT /patch/v3/templates/<template id>/systems
     "<system2 uuid>"
   ]
 }
-```
+----
 NOTE: Assigning a system to a template will overwrite any previously assigned template.
 The system will pick up content from your assigned content template when refreshing `subscription-manager`:
-```
+----
 rhc connect
 subscription-manager refresh
-```
+----
 
 - *For all systems (without using rhc):*
 Alternatively, manually download the `config.repo` repository file for your system configuration:
-```
+----
 curl -o /etc/yum.repos.d/template.repo  https://cert.console.redhat.com/api/content-sources/v1/templates/<template id>/config.repo
-```
+----
 NOTE: Systems consuming a template in this manner will not properly report applicable errata within Red Hat Lightspeed. The previous methods with `rhc` and `subscription-manager` are recommended.
 
 *Updating system content*
@@ -592,7 +595,7 @@ List all JVM instances in the account:
 ----
 GET /runtimes-inventory-service/v1/instances
 ----
-NOTE: to retrieve instances for a specific host only, append the following query parameter: `?hostname=<hostname>`
+NOTE: to retrieve instances for a specific host only, append the following query parameter: `?hostname=<hostname>`.
 
 List all JVM instance IDs for a specific host:
 ----
