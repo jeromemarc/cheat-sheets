@@ -631,7 +631,7 @@ GET /runtimes-inventory-service/v1/instance?eapInstanceId=<eap_instance_id>
 === Cost management
 Red Hat Lightspeed Cost Management provides visibility into cloud and infrastructure spend.
 
-- https://github.com/project-koku/costmgmt-api-cheatsheet/blob/master/costmgmt-api-cheatsheet.pdf[API cheat sheet] - For API-based access to cost data (recommended for automation and reporting).
+- https://developers.redhat.com/cheat-sheets/red-hat-lightspeed-cost-management-api[API cheat sheet] - For API-based access to cost data (recommended for automation and reporting).
 
 - https://developers.redhat.com/cheat-sheets/red-hat-lightspeed-cost-management-cheat-sheet[Getting started guide] - For initial setup and usage of the Cost Management service.
 
